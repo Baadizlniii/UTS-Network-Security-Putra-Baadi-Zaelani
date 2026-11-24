@@ -1,0 +1,24 @@
+# Environment dan kredensial
+.env
+.env.*
+*.key
+id_rsa
+id_ed25519
+
+# File sementara
+*.tmp
+*.swp
+*.bak
+*~
+
+# Cache dan hasil build
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+node_modules/
+
+# Log dan file sistem
+.DS_Store
+Thumbs.db
