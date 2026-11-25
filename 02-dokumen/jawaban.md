@@ -20,17 +20,23 @@
 
 ## 1. Latar Belakang
 
-Praktikum Ujian Tengah Semester (UTS) Praktik Infrastruktur & Network Attacks merupakan kegiatan pembelajaran untuk memahami konsep keamanan jaringan melalui pengujian langsung menggunakan lingkungan laboratorium berbasis Docker.
+Praktikum Ujian Tengah Semester (UTS) Praktik Infrastruktur & Network Attacks merupakan kegiatan pembelajaran yang bertujuan untuk menambah pemahaman mengenai keamanan jaringan melalui praktik secara langsung.
 
-Praktikum ini mencakup tujuh materi, yaitu Docker dan Volume, Kriptografi, ARP Spoofing, Analisis WPA2 Handshake, ICMP menggunakan Scapy, SYN Flood, dan DNS Exfiltration.
+Dalam kegiatan ini, pengujian dilakukan menggunakan lingkungan laboratorium berbasis Docker dengan bantuan beberapa tools keamanan jaringan. Materi yang dipraktikkan meliputi Docker dan Volume, Kriptografi, ARP Spoofing, Analisis WPA2 Handshake, ICMP menggunakan Scapy, SYN Flood, dan DNS Exfiltration.
 
-Setiap kegiatan didokumentasikan melalui langkah pengerjaan, hasil pengujian, pembahasan, dan bukti screenshot.
+Melalui tujuh kegiatan tersebut, mahasiswa diharapkan dapat memahami cara kerja beberapa teknologi jaringan, mengetahui kemungkinan ancaman yang dapat terjadi, serta mempelajari metode pengujian dan mitigasinya.
 
-Dokumen ini merupakan laporan utama. Dokumentasi pendukung setiap tugas berupa file `hasil.md` dan screenshot tersedia pada folder `tugas-1/` sampai `tugas-7/` di direktori yang sama dengan dokumen ini.
+Setiap kegiatan dilengkapi dengan langkah pengerjaan, hasil pengujian, pembahasan, kesimpulan, dan dokumentasi screenshot sebagai bukti pelaksanaan praktikum.
+
+Dokumen ini merupakan laporan utama. Dokumentasi pendukung setiap tugas berupa file `hasil.md` dan screenshot tersedia pada folder `tugas-1/` sampai `tugas-7/` di direktori yang sesuai.
 
 ## 2. Penentuan Nomor Kasus
 
-NIM: `24552011131`
+Penentuan nomor kasus dilakukan berdasarkan jumlah seluruh digit NIM mahasiswa.
+
+**NIM: 24552011131**
+
+Perhitungan:
 
 ```text
 2 + 4 + 5 + 5 + 2 + 0 + 1 + 1 + 1 + 3 + 1 = 25
@@ -38,7 +44,7 @@ NIM: `24552011131`
 25 mod 10 = 5
 ```
 
-Berdasarkan perhitungan tersebut, nomor kasus yang dikerjakan adalah **Kasus 5**.
+Berdasarkan hasil perhitungan tersebut, nomor kasus yang dikerjakan adalah **Kasus 5**.
 
 ## 3. Parameter Praktikum
 
@@ -53,11 +59,13 @@ Berdasarkan perhitungan tersebut, nomor kasus yang dikerjakan adalah **Kasus 5**
 
 ## 4. Struktur Repository
 
+Berikut merupakan struktur utama direktori yang digunakan untuk menyimpan kebutuhan praktikum.
+
 | Folder | Keterangan |
 |---|---|
-| `01-sumber-lab/` | Dockerfile, konfigurasi Docker Compose, dan script praktikum |
-| `02-dokumen/` | Dokumen panduan dan lembar perintah praktikum |
-| `03-hasil-kasus-5/` | Laporan utama (`jawaban.md`), `hasil.md`, dan screenshot setiap tugas |
+| `01-sumber-lab/` | Berisi Dockerfile, konfigurasi Docker Compose, dan script praktikum. |
+| `02-dokumen/` | Berisi dokumen panduan dan lembar perintah praktikum. |
+| `03-hasil-kasus-5/` | Berisi laporan utama (`jawaban.md`), file `hasil.md`, dan screenshot setiap tugas. |
 
 ---
 
@@ -69,11 +77,13 @@ Berdasarkan perhitungan tersebut, nomor kasus yang dikerjakan adalah **Kasus 5**
 
 ## 1. Tujuan
 
-Memahami penggunaan Docker Volume untuk menyimpan data secara persisten serta menguji komunikasi antarcontainer menggunakan Docker Compose.
+Praktikum ini bertujuan untuk memahami penggunaan Docker Volume sebagai media penyimpanan data secara persisten. Selain itu, kegiatan ini juga dilakukan untuk menguji komunikasi antarcontainer menggunakan Docker Compose.
 
 ## 2. Langkah Pengerjaan
 
 **1. Membuat Docker Volume**
+
+Langkah pertama adalah membuat volume dengan nama `vol-k5` yang akan digunakan untuk menyimpan data praktikum.
 
 ```bash
 sudo docker volume create vol-k5
@@ -81,17 +91,23 @@ sudo docker volume create vol-k5
 
 **2. Menulis NIM ke dalam volume**
 
+Selanjutnya, menjalankan container Alpine untuk membuat file `laporan-k5.txt` dan menyimpan NIM ke dalam volume yang telah dibuat.
+
 ```bash
 sudo docker run --name w-k5 -v vol-k5:/data alpine sh -c 'echo 24552011131 > /data/laporan-k5.txt'
 ```
 
 **3. Menghapus container pertama**
 
+Setelah data berhasil disimpan, container `w-k5` dihapus untuk menguji apakah data tetap tersedia di dalam volume.
+
 ```bash
 sudo docker rm w-k5
 ```
 
 **4. Membaca kembali file menggunakan container baru**
+
+File yang sebelumnya disimpan kemudian dibaca menggunakan container baru.
 
 ```bash
 sudo docker run --rm -v vol-k5:/data alpine cat /data/laporan-k5.txt
@@ -105,11 +121,15 @@ Hasil:
 
 **5. Menjalankan layanan Docker Compose**
 
+Selanjutnya, menjalankan layanan attacker dan target menggunakan Docker Compose.
+
 ```bash
 sudo docker compose -p k5 -f 01-sumber-lab/b/b1-compose/docker-compose.yml up -d
 ```
 
 **6. Menguji komunikasi attacker ke target**
+
+Pengujian komunikasi dilakukan dengan mengakses layanan web pada container target dari container attacker.
 
 ```bash
 sudo docker compose -p k5 -f 01-sumber-lab/b/b1-compose/docker-compose.yml exec attacker wget -qO- http://target
@@ -119,45 +139,47 @@ Hasil: halaman default Nginx berhasil ditampilkan.
 
 **7. Membersihkan lingkungan praktikum**
 
+Setelah seluruh pengujian selesai, container dan volume yang digunakan dibersihkan.
+
 ```bash
 sudo docker compose -p k5 -f 01-sumber-lab/b/b1-compose/docker-compose.yml down -v
 ```
 
 ## 3. Hasil Pengujian
 
-File `laporan-k5.txt` yang berisi NIM berhasil dibaca kembali setelah container yang menulisnya dihapus.
+Berdasarkan pengujian yang dilakukan, file `laporan-k5.txt` yang berisi NIM berhasil dibaca kembali setelah container yang digunakan untuk menulis data dihapus.
 
-Hal ini membuktikan bahwa data yang disimpan menggunakan Docker Volume tetap tersedia meskipun container dihapus.
+Hasil tersebut menunjukkan bahwa Docker Volume dapat menyimpan data secara terpisah dari siklus hidup container. Dengan demikian, data yang disimpan di dalam volume tetap tersedia meskipun container dihapus.
 
-Selain itu, container attacker berhasil mengakses halaman Nginx pada container target melalui nama service `target`.
+Selain itu, pengujian komunikasi antarcontainer juga berhasil dilakukan. Container attacker dapat mengakses halaman default Nginx pada container target melalui nama service `target`.
 
 ## 4. Bukti Screenshot
 
-**Gambar 1.** Membuat Docker Volume `vol-k5`.
+**Gambar 1.** Proses pembuatan Docker Volume dengan nama `vol-k5` yang digunakan sebagai media penyimpanan data praktikum.
 
 ![Gambar 1](https://github.com/user-attachments/assets/48bae63f-981c-40eb-8cff-42b846e74782)
 
-**Gambar 2.** Menulis NIM ke file `laporan-k5.txt` di dalam volume.
+**Gambar 2.** Proses memasukkan NIM ke dalam file `laporan-k5.txt` yang disimpan pada Docker Volume `vol-k5`.
 
 ![Gambar 2](https://github.com/user-attachments/assets/bd53370b-97c9-4d31-ab88-98ef0b83c1a4)
 
-**Gambar 3.** Menghapus container `w-k5`.
+**Gambar 3.** Penghapusan container `w-k5` setelah proses penyimpanan data selesai dilakukan.
 
 ![Gambar 3](https://github.com/user-attachments/assets/2efb07ff-687c-4bec-947a-ed8d3084f5e6)
 
-**Gambar 4.** Membaca kembali file dari volume dan memastikan data tetap tersedia.
+**Gambar 4.** Pengujian pembacaan kembali file `laporan-k5.txt` menggunakan container baru. NIM masih dapat ditampilkan meskipun container sebelumnya telah dihapus.
 
 ![Gambar 4](https://github.com/user-attachments/assets/2b81f0af-21fa-4705-9649-bfec601e1a4b)
 
-**Gambar 5.** Menjalankan container target dan attacker menggunakan Docker Compose.
+**Gambar 5.** Proses menjalankan container attacker dan target menggunakan Docker Compose sebagai persiapan pengujian komunikasi antarcontainer.
 
 ![Gambar 5](https://github.com/user-attachments/assets/8b1528c7-7481-4798-be77-2992e0d3c0a6)
 
-**Gambar 6.** Menguji komunikasi attacker dengan server Nginx.
+**Gambar 6.** Pengujian komunikasi dari container attacker menuju server Nginx pada container target. Hasilnya, halaman default Nginx berhasil ditampilkan.
 
 ![Gambar 6](https://github.com/user-attachments/assets/98d143eb-f433-486c-9ffd-6815f5b91ea8)
 
-**Gambar 7.** Membersihkan lingkungan praktikum menggunakan Docker Compose.
+**Gambar 7.** Proses menghentikan dan membersihkan lingkungan praktikum menggunakan Docker Compose setelah pengujian selesai.
 
 ![Gambar 7](https://github.com/user-attachments/assets/5f6de2bb-c5b3-45c9-bd58-7669b1f43aa2)
 
@@ -165,7 +187,7 @@ Selain itu, container attacker berhasil mengakses halaman Nginx pada container t
 
 Berdasarkan praktikum yang telah dilakukan, Docker Volume dapat digunakan untuk menyimpan data secara persisten sehingga data tidak hilang ketika container dihapus.
 
-Docker Compose juga mempermudah pengelolaan beberapa container yang saling terhubung dalam satu jaringan.
+Selain itu, Docker Compose mempermudah pengelolaan beberapa container yang saling terhubung dalam satu jaringan. Melalui pengujian ini, saya dapat memahami bahwa penyimpanan data dan komunikasi antarcontainer merupakan bagian penting dalam pengelolaan lingkungan Docker.
 
 ---
 
@@ -175,11 +197,13 @@ Docker Compose juga mempermudah pengelolaan beberapa container yang saling terhu
 
 ## 1. Tujuan
 
-Memahami proses enkripsi dan dekripsi AES-256-CBC, pemeriksaan integritas menggunakan SHA-256, serta pembuatan sertifikat digital menggunakan OpenSSL.
+Praktikum ini bertujuan untuk memahami proses enkripsi dan dekripsi menggunakan algoritma AES-256-CBC, melakukan pemeriksaan integritas data menggunakan SHA-256, serta membuat sertifikat digital menggunakan OpenSSL.
 
 ## 2. Langkah Pengerjaan
 
 ### a. Enkripsi dan Dekripsi AES-256-CBC
+
+Langkah pertama adalah membuat file yang akan digunakan sebagai bahan pengujian. File tersebut kemudian dienkripsi menggunakan AES-256-CBC.
 
 ```bash
 sudo docker run --rm -v "$PWD":/work uts-openssl sh -c \
@@ -190,7 +214,11 @@ openssl enc -d -aes-256-cbc -pbkdf2 -in laporan-k5.enc -out hasil-k5.txt -pass p
 sha256sum hasil-k5.txt'
 ```
 
+Setelah proses enkripsi selesai, file terenkripsi didekripsi kembali menggunakan kunci yang sama. Selanjutnya, nilai hash dari file asli dan hasil dekripsi dibandingkan untuk memeriksa kesamaan data.
+
 ### b. Pembuatan Sertifikat Digital
+
+Setelah pengujian enkripsi dan dekripsi, dilakukan pembuatan sertifikat digital X.509 menggunakan OpenSSL.
 
 ```bash
 sudo docker run --rm -v "$PWD":/work uts-openssl sh -c \
@@ -198,17 +226,21 @@ sudo docker run --rm -v "$PWD":/work uts-openssl sh -c \
 openssl x509 -in cert-k5.pem -noout -subject -issuer -dates'
 ```
 
+Perintah tersebut digunakan untuk membuat pasangan kunci RSA dan sertifikat digital self-signed dengan Common Name `k5.uts.local`.
+
 ## 3. Hasil Pengujian
 
-Hash SHA-256 dari file sebelum enkripsi dan setelah dekripsi menghasilkan nilai yang sama:
+Berdasarkan hasil pengujian, proses enkripsi dan dekripsi menggunakan AES-256-CBC berhasil dilakukan.
+
+Pemeriksaan integritas menggunakan SHA-256 menghasilkan nilai hash yang sama pada file asli dan file hasil dekripsi.
 
 ```text
 22e90e5baa6048f9871927be4fa8af9d141b10a1071cf2b975272db8343f79b5
 ```
 
-Kesamaan nilai hash pada file `laporan-k5.txt` dan `hasil-k5.txt` menunjukkan bahwa isi file setelah dekripsi sama dengan isi file aslinya.
+Kesamaan nilai hash menunjukkan bahwa isi file setelah proses dekripsi sesuai dengan isi file sebelum dienkripsi.
 
-Selain itu, sertifikat digital X.509 self-signed berhasil dibuat dengan hasil sebagai berikut:
+Selain itu, sertifikat digital X.509 self-signed berhasil dibuat menggunakan OpenSSL dengan hasil sebagai berikut.
 
 | Field | Hasil |
 |---|---|
@@ -217,23 +249,25 @@ Selain itu, sertifikat digital X.509 self-signed berhasil dibuat dengan hasil se
 | Masa berlaku | 24 November 2026 – 24 Desember 2026 |
 | Algoritma kunci | RSA 2048-bit |
 
-Sertifikat self-signed merupakan sertifikat yang ditandatangani oleh pemiliknya sendiri sehingga nilai Subject dan Issuer biasanya sama.
+Sertifikat self-signed merupakan sertifikat yang ditandatangani menggunakan kunci milik pembuatnya sendiri. Oleh karena itu, nilai Subject dan Issuer pada sertifikat ini sama.
 
-Sementara itu, sertifikat yang ditandatangani oleh Certificate Authority (CA) memperoleh tanda tangan dari pihak penerbit yang dipercaya sehingga rantai kepercayaannya dapat diverifikasi.
+Berbeda dengan sertifikat yang ditandatangani oleh Certificate Authority (CA), sertifikat self-signed tidak secara otomatis memperoleh kepercayaan dari pihak lain dan perlu diverifikasi secara terpisah.
 
 ## 4. Bukti Screenshot
 
-**Gambar 8.** Proses enkripsi dan dekripsi AES-256-CBC serta pemeriksaan hash SHA-256.
+**Gambar 8.** Proses enkripsi dan dekripsi file menggunakan AES-256-CBC, dilanjutkan dengan pemeriksaan hash SHA-256 untuk memastikan data hasil dekripsi sesuai dengan file aslinya.
 
 ![Gambar 8](https://github.com/user-attachments/assets/19675bbd-c956-4ca8-950f-8de565614b02)
 
-**Gambar 9.** Pembuatan dan pemeriksaan sertifikat X.509 self-signed.
+**Gambar 9.** Proses pembuatan sertifikat digital X.509 self-signed menggunakan OpenSSL dan pemeriksaan informasi sertifikat yang telah berhasil dibuat.
 
 ![Gambar 9](https://github.com/user-attachments/assets/085644cf-f7b4-493f-85d0-6d92c5294e70)
 
 ## 5. Kesimpulan
 
-Berdasarkan praktikum ini, AES-256-CBC dapat digunakan untuk menjaga kerahasiaan data, SHA-256 membantu memeriksa integritas data, sedangkan sertifikat X.509 digunakan untuk identifikasi entitas dalam komunikasi digital.
+Berdasarkan praktikum ini, saya memahami bahwa AES-256-CBC dapat digunakan untuk menjaga kerahasiaan data melalui proses enkripsi dan dekripsi.
+
+SHA-256 digunakan untuk memeriksa integritas data dengan membandingkan nilai hash sebelum dan sesudah proses dekripsi. Sementara itu, sertifikat X.509 dapat digunakan untuk identifikasi suatu entitas dalam komunikasi digital.
 
 ---
 
@@ -243,11 +277,13 @@ Berdasarkan praktikum ini, AES-256-CBC dapat digunakan untuk menjaga kerahasiaan
 
 ## 1. Tujuan
 
-Memahami protokol ARP, melakukan simulasi ARP Spoofing pada jaringan laboratorium, serta mempelajari mitigasi menggunakan Static ARP.
+Praktikum ini bertujuan untuk memahami cara kerja protokol ARP, melakukan simulasi ARP Spoofing pada jaringan laboratorium, serta mempelajari salah satu metode mitigasinya menggunakan Static ARP.
 
 ## 2. Langkah Pengerjaan
 
 **1. Membuat jaringan internal**
+
+Langkah pertama adalah membuat jaringan Docker internal yang digunakan sebagai lingkungan pengujian.
 
 ```bash
 sudo docker network create --internal lab-arp-k5
@@ -317,7 +353,7 @@ sudo docker exec korban-k5 arp -a
 
 ## 3. Hasil Pengujian
 
-Hasil pengamatan perubahan MAC Address gateway pada tabel ARP korban adalah sebagai berikut:
+Berdasarkan hasil pengamatan, terdapat perubahan MAC Address gateway pada tabel ARP milik container korban selama simulasi berlangsung.
 
 | Kondisi | MAC Address Gateway |
 |---|---|
@@ -325,63 +361,65 @@ Hasil pengamatan perubahan MAC Address gateway pada tabel ARP korban adalah seba
 | Setelah spoofing | `c2:a5:0b:4f:be:c2` |
 | Setelah mitigasi | `06:07:6d:ed:83:2c` |
 
-Setelah simulasi ARP Spoofing dijalankan, pemetaan alamat MAC gateway pada tabel ARP korban berubah menjadi MAC Address milik container penyerang.
+Sebelum serangan dilakukan, tabel ARP korban menunjukkan MAC Address gateway yang sebenarnya.
 
-Setelah Static ARP diterapkan, pemetaan kembali menggunakan MAC Address asli gateway dengan status permanen (`PERM`).
+Setelah simulasi ARP Spoofing dijalankan, pemetaan alamat MAC gateway berubah menjadi MAC Address milik container penyerang. Hal tersebut menunjukkan bahwa paket ARP palsu berhasil memengaruhi informasi pemetaan pada tabel ARP korban.
+
+Setelah Static ARP diterapkan, pemetaan alamat gateway kembali menggunakan MAC Address yang sebenarnya dan ditampilkan dengan status permanen (`PERM`).
 
 ## 4. Bukti Screenshot
 
-**Gambar 10.** Membuat jaringan internal `lab-arp-k5`.
+**Gambar 10.** Proses pembuatan jaringan Docker internal bernama `lab-arp-k5` yang digunakan sebagai lingkungan simulasi ARP Spoofing.
 
 ![Gambar 10](https://github.com/user-attachments/assets/38ba18d2-c60d-4868-8e20-738788064bce)
 
-**Gambar 11.** Menjalankan container korban.
+**Gambar 11.** Proses menjalankan container korban yang akan digunakan untuk mengamati perubahan tabel ARP selama pengujian.
 
 ![Gambar 11](https://github.com/user-attachments/assets/79d9dd80-f284-45aa-be66-f53b9165d5fa)
 
-**Gambar 12.** Menjalankan container gateway.
+**Gambar 12.** Proses menjalankan container gateway sebagai perangkat tujuan yang akan dipetakan alamat IP dan MAC Address-nya.
 
 ![Gambar 12](https://github.com/user-attachments/assets/3a9c7f49-db3f-4c82-ba3f-c3a4f714c430)
 
-**Gambar 13.** Menjalankan container penyerang.
+**Gambar 13.** Proses menjalankan container penyerang yang digunakan untuk melakukan simulasi ARP Spoofing pada jaringan laboratorium.
 
 ![Gambar 13](https://github.com/user-attachments/assets/13097941-35f3-4267-90b3-894d612148d3)
 
-**Gambar 14.** Memeriksa alamat IP setiap container.
+**Gambar 14.** Pemeriksaan alamat IP dari container korban, gateway, dan penyerang untuk memastikan konfigurasi jaringan sesuai dengan rancangan praktikum.
 
 ![Gambar 14](https://github.com/user-attachments/assets/ded1d69c-3057-44ef-abd5-4f8482b46e86)
 
-**Gambar 15.** Tabel ARP korban sebelum serangan.
+**Gambar 15.** Hasil pemeriksaan tabel ARP pada container korban sebelum serangan dilakukan. Data ini digunakan sebagai pembanding dengan kondisi setelah spoofing.
 
 ![Gambar 15](https://github.com/user-attachments/assets/14b8b3a8-fd5d-4ab4-8979-b523cb89d322)
 
-**Gambar 16.** Menjalankan simulasi ARP Spoofing.
+**Gambar 16.** Proses menjalankan simulasi ARP Spoofing dari container penyerang terhadap container korban dengan mengirimkan paket ARP palsu.
 
 ![Gambar 16](https://github.com/user-attachments/assets/d0dc51e6-c092-41d2-8f09-855fa25c9215)
 
-**Gambar 17.** Perubahan MAC Address gateway setelah spoofing.
+**Gambar 17.** Hasil pemeriksaan tabel ARP setelah simulasi dilakukan. Terlihat adanya perubahan MAC Address gateway menjadi MAC Address milik container penyerang.
 
 ![Gambar 17](https://github.com/user-attachments/assets/7756406a-0401-49cd-8021-22035eaa678d)
 
-**Gambar 18.** Menerapkan Static ARP sebagai mitigasi.
+**Gambar 18.** Proses penerapan Static ARP pada container korban untuk mempertahankan pemetaan alamat IP gateway dengan MAC Address yang benar.
 
 ![Gambar 18](https://github.com/user-attachments/assets/f9835b3b-8d17-4976-88c5-8525cac006f7)
 
-**Gambar 19.** Tabel ARP setelah mitigasi diterapkan.
+**Gambar 19.** Hasil pemeriksaan tabel ARP setelah mitigasi diterapkan. Pemetaan gateway kembali menggunakan MAC Address asli dengan status permanen.
 
 ![Gambar 19](https://github.com/user-attachments/assets/9a4b282f-e8a0-464a-96b9-88042c6672a2)
 
 ## 5. Mitigasi Lain
 
-Selain menggunakan Static ARP, ARP Spoofing juga dapat dikurangi menggunakan Dynamic ARP Inspection (DAI).
+Selain menggunakan Static ARP, ARP Spoofing juga dapat dikurangi dengan menerapkan Dynamic ARP Inspection (DAI).
 
-Fitur ini memvalidasi paket ARP berdasarkan informasi IP dan MAC Address yang dipercaya, misalnya melalui DHCP Snooping.
+Fitur DAI bekerja dengan memvalidasi paket ARP berdasarkan informasi IP dan MAC Address yang dipercaya, misalnya melalui data DHCP Snooping. Dengan demikian, paket ARP yang tidak sesuai dengan informasi valid dapat ditolak.
 
 ## 6. Kesimpulan
 
-ARP Spoofing dapat mengubah pemetaan IP dan MAC Address pada tabel ARP korban.
+Berdasarkan praktikum yang telah dilakukan, ARP Spoofing dapat mengubah pemetaan IP dan MAC Address pada tabel ARP korban.
 
-Static ARP membantu mempertahankan pemetaan yang benar, sedangkan Dynamic ARP Inspection dapat menjadi perlindungan tambahan pada jaringan yang mendukung fitur tersebut.
+Melalui pengujian ini, saya dapat melihat secara langsung perubahan MAC Address ketika simulasi dilakukan. Penerapan Static ARP membantu mempertahankan pemetaan yang benar, sedangkan Dynamic ARP Inspection dapat menjadi perlindungan tambahan pada jaringan yang mendukung fitur tersebut.
 
 ---
 
@@ -391,11 +429,13 @@ Static ARP membantu mempertahankan pemetaan yang benar, sedangkan Dynamic ARP In
 
 ## 1. Tujuan
 
-Memahami proses autentikasi WPA2 dan menganalisis file handshake menggunakan Aircrack-ng serta wordlist praktikum.
+Praktikum ini bertujuan untuk memahami proses autentikasi WPA2 dan mencoba melakukan analisis file handshake menggunakan Aircrack-ng serta wordlist yang telah disediakan.
 
 ## 2. Langkah Pengerjaan
 
 **1. Memeriksa file capture dan wordlist**
+
+Langkah pertama adalah memastikan file capture dan wordlist tersedia sebelum dilakukan proses analisis.
 
 ```bash
 ls -lh handshake-k5.cap wordlist-k5.txt
@@ -427,61 +467,65 @@ sha256sum handshake-k5.cap
 
 ## 3. Hasil Pengujian
 
-File `handshake-k5.cap` yang disediakan tidak dapat dianalisis oleh Aircrack-ng.
+Berdasarkan pengujian yang dilakukan, file `handshake-k5.cap` tidak berhasil dianalisis menggunakan Aircrack-ng.
 
-Berdasarkan hasil pemeriksaan, ditemukan beberapa kondisi berikut:
+Dari hasil pemeriksaan, ditemukan beberapa kondisi berikut:
 
 - `capinfos` melaporkan bahwa file capture rusak atau tidak dapat dibaca dengan benar.
 - Aircrack-ng membaca 0 paket.
 - Aircrack-ng menyatakan bahwa file bukan capture 802.11 yang valid.
 - Tidak ditemukan jaringan yang dapat dianalisis.
 
-Dengan demikian, pengujian berhenti pada tahap pembacaan file. Tidak terdapat hasil `KEY FOUND` maupun `KEY NOT FOUND` karena file belum berhasil dibaca sebagai capture yang valid.
+Dengan demikian, proses pengujian hanya dapat dilakukan sampai tahap pemeriksaan file. Proses pencocokan wordlist belum dapat dilanjutkan karena file capture tidak berhasil dibaca sebagai capture 802.11 yang valid.
 
-Pemeriksaan menggunakan `xxd` menunjukkan adanya magic number pcap. Namun, hal tersebut belum membuktikan bahwa isi file merupakan capture 802.11 yang valid.
+Tidak terdapat hasil `KEY FOUND` maupun `KEY NOT FOUND` karena proses analisis belum berhasil mencapai tahap pencocokan kata sandi.
+
+Pemeriksaan menggunakan `xxd` menunjukkan adanya magic number pcap. Namun, hal tersebut belum cukup untuk membuktikan bahwa seluruh isi file merupakan capture 802.11 yang valid.
 
 ## 4. Bukti Screenshot
 
-**Gambar 20.** Memeriksa ketersediaan file capture dan wordlist.
+**Gambar 20.** Pemeriksaan ketersediaan file `handshake-k5.cap` dan `wordlist-k5.txt` sebagai persiapan sebelum proses analisis WPA2 Handshake dilakukan.
 
 ![Gambar 20](https://github.com/user-attachments/assets/5fad8222-00f3-48fb-ab3b-dfc4cc814d1f)
 
-**Gambar 21.** Memeriksa isi wordlist yang berisi 20 kandidat kata sandi.
+**Gambar 21.** Pemeriksaan isi wordlist yang digunakan sebagai kumpulan kandidat kata sandi dalam pengujian WPA2 Handshake.
 
 ![Gambar 21](https://github.com/user-attachments/assets/58d19bac-ec5a-4cf6-9e23-d5521d5e2784)
 
-**Gambar 22.** Hasil pemeriksaan file menggunakan capinfos.
+**Gambar 22.** Hasil pemeriksaan file capture menggunakan `capinfos`. Informasi yang ditampilkan menunjukkan bahwa file mengalami masalah sehingga tidak dapat dibaca dengan benar.
 
 ![Gambar 22](https://github.com/user-attachments/assets/8b754e73-8829-4223-a444-fb6627649c13)
 
-**Gambar 23.** Aircrack-ng gagal membaca file capture sebagai format 802.11 yang valid.
+**Gambar 23.** Hasil percobaan analisis menggunakan Aircrack-ng. File capture tidak berhasil dikenali sebagai format 802.11 yang valid sehingga proses pencocokan wordlist tidak dapat dilanjutkan.
 
 ![Gambar 23](https://github.com/user-attachments/assets/95dfa713-42ce-4927-85d4-26f70bf0b788)
 
-**Gambar 24.** Pemeriksaan header file menggunakan xxd.
+**Gambar 24.** Pemeriksaan bagian awal file menggunakan perintah `xxd` untuk melihat informasi header dan struktur awal file capture.
 
 ![Gambar 24](https://github.com/user-attachments/assets/5ca7b8f7-d68a-45f9-bf8f-37a1d9c42bae)
 
-**Gambar 25.** Pemeriksaan hash SHA-256 file capture.
+**Gambar 25.** Pemeriksaan nilai hash SHA-256 file capture sebagai informasi identifikasi file yang digunakan selama pengujian.
 
 ![Gambar 25](https://github.com/user-attachments/assets/89c674de-f23a-4c31-9643-fdb39f1c62a4)
 
 ## 5. Pembahasan WPA2 Four-Way Handshake
 
-Secara konsep, proses autentikasi WPA2 menggunakan empat tahapan utama:
+Secara konsep, proses autentikasi WPA2 menggunakan empat tahapan utama yang dikenal sebagai Four-Way Handshake.
 
-1. **Message 1 (AP → Client):** Access Point mengirimkan ANonce kepada client.
+1. **Message 1 (AP → Client):** Access Point mengirimkan ANonce kepada client sebagai bagian dari proses pembentukan kunci.
 2. **Message 2 (Client → AP):** Client menghasilkan SNonce, menghitung PTK, kemudian mengirimkan SNonce beserta MIC kepada Access Point.
-3. **Message 3 (AP → Client):** Access Point mengirimkan GTK yang telah dienkripsi beserta MIC kepada client.
+3. **Message 3 (AP → Client):** Access Point mengirimkan informasi GTK yang telah dienkripsi beserta MIC kepada client.
 4. **Message 4 (Client → AP):** Client mengirimkan konfirmasi bahwa pesan telah diterima. Setelah proses ini selesai, komunikasi terenkripsi dapat digunakan.
+
+Pada praktikum ini, file capture tidak dapat dibaca dengan benar sehingga tahapan tersebut tidak dapat diamati secara langsung melalui hasil capture yang tersedia.
 
 ## 6. Kesimpulan
 
-Aircrack-ng membutuhkan file capture yang valid dan berisi informasi handshake WPA2.
+Berdasarkan praktikum ini, saya memahami bahwa analisis WPA2 Handshake membutuhkan file capture yang valid dan berisi informasi handshake yang sesuai.
 
-Pada praktikum ini, file yang tersedia tidak dapat dibaca sebagai capture 802.11 yang valid sehingga analisis tidak dapat dilanjutkan ke tahap pencocokan wordlist.
+Pada pengujian yang dilakukan, file yang tersedia tidak dapat dibaca sebagai capture 802.11 yang valid. Oleh karena itu, proses analisis tidak dapat dilanjutkan ke tahap pencocokan wordlist.
 
-Kendala tersebut didokumentasikan sesuai dengan hasil pengujian yang diperoleh.
+Kendala tersebut dicatat sesuai dengan hasil pengujian yang diperoleh, sehingga kesimpulan tidak dibuat berdasarkan hasil yang belum berhasil dibuktikan.
 
 ---
 
@@ -491,19 +535,21 @@ Kendala tersebut didokumentasikan sesuai dengan hasil pengujian yang diperoleh.
 
 ## 1. Tujuan
 
-Memahami protokol ICMP dan menggunakan Scapy untuk membuat serta mengirim paket ICMP, kemudian mengamati respons dari host tujuan.
+Praktikum ini bertujuan untuk memahami protokol ICMP serta mempelajari penggunaan Scapy untuk membuat dan mengirim paket ICMP. Selain itu, dilakukan pengamatan terhadap respons dari host tujuan.
 
 ## 2. Langkah Pengerjaan
 
-Menjalankan script pengiriman ICMP menggunakan perintah berikut:
+Pengujian dilakukan dengan menjalankan script pengiriman ICMP menggunakan perintah berikut.
 
 ```bash
 sudo docker run --rm --network lab-arp-k5 -v "$PWD/01-sumber-lab/kasus/k5-scapy:/work" uts-kali-tools python3 /work/kirim_icmp.py 172.20.0.2
 ```
 
+Perintah tersebut digunakan untuk menjalankan script `kirim_icmp.py` dari dalam container dan mengirimkan paket ICMP menuju alamat IP `172.20.0.2`.
+
 ## 3. Hasil Pengujian
 
-Paket ICMP berhasil dikirim dan mendapatkan respons dari host tujuan.
+Berdasarkan hasil pengujian, paket ICMP berhasil dikirim dan mendapatkan respons dari host tujuan.
 
 Hasil pengujian:
 
@@ -513,29 +559,37 @@ TTL balasan: 64
 Tipe ICMP balasan: 0
 ```
 
-Tipe ICMP `0` menunjukkan bahwa paket yang diterima merupakan Echo Reply.
+Dari hasil tersebut, terlihat bahwa paket dikirim dari alamat IP `172.20.0.5` menuju `172.20.0.2`.
+
+Nilai TTL balasan adalah 64, sedangkan tipe ICMP 0 menunjukkan bahwa paket yang diterima merupakan Echo Reply.
 
 Hal ini menunjukkan bahwa host tujuan berhasil memberikan respons terhadap ICMP Echo Request yang dikirim menggunakan Scapy.
 
 ## 4. Bukti Screenshot
 
-**Gambar 26.** Pengiriman ICMP Echo Request dan penerimaan Echo Reply menggunakan Scapy.
+**Gambar 26.** Hasil pengujian pengiriman ICMP Echo Request menggunakan Scapy. Pada terminal terlihat paket dikirim menuju host tujuan dan mendapatkan respons berupa Echo Reply.
 
 ![Gambar 26](https://github.com/user-attachments/assets/c0bc5a2d-132f-40fa-a25e-3a13bac468f2)
 
 ## 5. Pembahasan Smurf Attack
 
-Smurf Attack merupakan serangan Denial of Service (DoS) yang memanfaatkan ICMP Echo Request dan alamat broadcast.
+Smurf Attack merupakan salah satu bentuk serangan Denial of Service (DoS) yang memanfaatkan ICMP Echo Request dan alamat broadcast.
 
 Dalam serangan ini, penyerang memalsukan alamat IP korban sebagai alamat sumber paket. Paket kemudian dikirim ke alamat broadcast sehingga sejumlah host dapat mengirimkan balasan ICMP secara bersamaan menuju korban.
 
-Mitigasi dapat dilakukan dengan membatasi respons terhadap ICMP broadcast, melakukan penyaringan paket, dan menggunakan konfigurasi router yang menolak directed broadcast yang tidak diperlukan.
+Jika dilakukan dalam skala besar, kondisi tersebut dapat meningkatkan beban lalu lintas jaringan dan mengganggu ketersediaan layanan.
+
+Beberapa langkah mitigasi yang dapat diterapkan antara lain:
+
+- Membatasi respons terhadap ICMP broadcast.
+- Melakukan penyaringan paket pada perangkat jaringan.
+- Menggunakan konfigurasi router yang menolak directed broadcast yang tidak diperlukan.
 
 ## 6. Kesimpulan
 
-Scapy dapat digunakan untuk membuat dan mengirim paket jaringan secara terprogram.
+Berdasarkan praktikum yang dilakukan, Scapy dapat digunakan untuk membuat dan mengirim paket jaringan secara terprogram.
 
-Praktikum ini menunjukkan mekanisme ICMP Echo Request dan Echo Reply yang juga dapat disalahgunakan dalam serangan seperti Smurf Attack.
+Melalui pengujian ini, saya dapat memahami mekanisme ICMP Echo Request dan Echo Reply serta mengetahui bahwa protokol ICMP juga dapat disalahgunakan dalam serangan seperti Smurf Attack.
 
 ---
 
@@ -545,11 +599,13 @@ Praktikum ini menunjukkan mekanisme ICMP Echo Request dan Echo Reply yang juga d
 
 ## 1. Tujuan
 
-Memahami proses TCP Three-Way Handshake dan mempelajari simulasi SYN Flood secara terbatas pada lingkungan laboratorium.
+Praktikum ini bertujuan untuk memahami proses pembentukan koneksi TCP melalui Three-Way Handshake serta mempelajari simulasi SYN Flood secara terbatas pada lingkungan laboratorium.
 
 ## 2. Langkah Pengerjaan
 
 **1. Menjalankan container praktikum**
+
+Langkah pertama adalah menjalankan container attacker dan target menggunakan Docker Compose.
 
 ```bash
 sudo docker compose -p k5 -f 01-sumber-lab/b/b3-syn-flood/docker-compose.yml up -d
@@ -585,7 +641,7 @@ Hasil pengamatan:
 
 Pengamatan dilakukan ketika satu koneksi HTTP dibuat menggunakan `curl`.
 
-Hasil: sebanyak 12 paket berhasil tertangkap.
+Hasil: sebanyak 12 paket berhasil tertangkap selama pengujian.
 
 **6. Membersihkan lingkungan praktikum**
 
@@ -595,15 +651,17 @@ sudo docker compose -p k5 -f 01-sumber-lab/b/b3-syn-flood/docker-compose.yml dow
 
 ## 3. Pembahasan TCP Three-Way Handshake
 
-TCP Three-Way Handshake merupakan proses pembentukan koneksi antara client dan server yang terdiri dari tiga tahapan:
+TCP Three-Way Handshake merupakan proses pembentukan koneksi antara client dan server yang terdiri dari tiga tahapan.
 
-1. **SYN:** Client mengirimkan permintaan untuk memulai koneksi TCP.
-2. **SYN-ACK:** Server menerima permintaan dan mengirimkan respons kepada client.
-3. **ACK:** Client mengirimkan konfirmasi sehingga koneksi TCP dapat digunakan.
+1. **SYN:** Client mengirimkan permintaan untuk memulai koneksi TCP kepada server.
+2. **SYN-ACK:** Server menerima permintaan tersebut dan mengirimkan respons kepada client.
+3. **ACK:** Client mengirimkan konfirmasi sehingga koneksi TCP dapat digunakan untuk pertukaran data.
+
+Proses ini diperlukan agar kedua perangkat dapat membentuk koneksi sebelum melakukan komunikasi menggunakan TCP.
 
 ## 4. Hasil Pengujian
 
-Hasil pengamatan jumlah koneksi `SYN_RECV` adalah sebagai berikut:
+Berdasarkan hasil pengamatan, jumlah koneksi dengan status `SYN_RECV` mengalami perubahan selama simulasi SYN Flood berlangsung.
 
 | Kondisi | Jumlah `SYN_RECV` |
 |---|---|
@@ -612,49 +670,53 @@ Hasil pengamatan jumlah koneksi `SYN_RECV` adalah sebagai berikut:
 
 Nilai `SYN_RECV` sempat meningkat menjadi 1–2 ketika simulasi dijalankan, kemudian kembali turun menjadi 0 pada beberapa pengamatan berikutnya.
 
-Hasil ini menunjukkan adanya koneksi setengah terbuka yang sempat teramati, tetapi tidak menunjukkan bahwa server mengalami kelumpuhan.
+Hasil tersebut menunjukkan adanya koneksi setengah terbuka yang sempat teramati selama pengujian. Namun, berdasarkan data yang diperoleh, tidak dapat disimpulkan bahwa server mengalami kelumpuhan.
 
 Pada pengujian menggunakan tcpdump, sebanyak 12 paket berhasil tertangkap ketika satu koneksi HTTP dibuat.
 
-Paket yang diamati mencakup TCP Three-Way Handshake, HTTP GET, HTTP 200 OK, serta proses penutupan koneksi FIN/ACK.
+Paket yang diamati mencakup proses TCP Three-Way Handshake, HTTP GET, HTTP 200 OK, serta proses penutupan koneksi menggunakan FIN/ACK.
 
 ## 5. Bukti Screenshot
 
-**Gambar 27.** Menjalankan container attacker dan target menggunakan Docker Compose.
+**Gambar 27.** Proses menjalankan container attacker dan target menggunakan Docker Compose sebagai persiapan untuk melakukan simulasi SYN Flood.
 
 ![Gambar 27](https://github.com/user-attachments/assets/99efbc88-1d5c-4602-86ec-0f0cee8c72f9)
 
-**Gambar 28.** Memeriksa status SYN_RECV sebelum serangan.
+**Gambar 28.** Pemeriksaan awal jumlah koneksi dengan status `SYN_RECV` pada container target sebelum simulasi dilakukan. Hasil awal menunjukkan nilai 0.
 
 ![Gambar 28](https://github.com/user-attachments/assets/179ac2f3-8437-4b1e-b038-19cd9b4d074e)
 
-**Gambar 29.** Menjalankan simulasi SYN Flood selama 15 detik.
+**Gambar 29.** Proses menjalankan simulasi SYN Flood menggunakan hping3 dengan durasi 15 detik pada lingkungan laboratorium.
 
 ![Gambar 29](https://github.com/user-attachments/assets/3c622444-45e9-44d2-80cc-ab0b6e544969)
 
-**Gambar 30.** Memantau perubahan jumlah koneksi SYN_RECV selama pengujian.
+**Gambar 30.** Hasil pemantauan jumlah koneksi `SYN_RECV` selama simulasi berlangsung. Terlihat adanya perubahan jumlah koneksi pada beberapa waktu pengamatan.
 
 ![Gambar 30](https://github.com/user-attachments/assets/ae1af218-1746-402f-9164-4a5a5fa513e0)
 
-**Gambar 31.** Mengamati paket TCP dan HTTP menggunakan tcpdump.
+**Gambar 31.** Proses pengamatan lalu lintas jaringan menggunakan tcpdump ketika koneksi HTTP dilakukan untuk melihat paket TCP yang melewati jaringan.
 
 ![Gambar 31](https://github.com/user-attachments/assets/c6263b76-1036-4051-81e3-06caa57ffe39)
 
-**Gambar 32.** Membersihkan container dan jaringan setelah praktikum.
+**Gambar 32.** Proses membersihkan container dan jaringan praktikum menggunakan Docker Compose setelah seluruh pengujian selesai dilakukan.
 
 ![Gambar 32](https://github.com/user-attachments/assets/69ec7d1c-64f7-4101-b047-6d2eed42f9ed)
 
 ## 6. Mitigasi SYN Flood
 
-Salah satu metode mitigasi SYN Flood adalah SYN Cookies.
+Salah satu metode yang dapat digunakan untuk mengurangi dampak SYN Flood adalah SYN Cookies.
 
-Server menggunakan nilai sequence number pada SYN-ACK untuk menyimpan informasi koneksi sementara. Sumber daya koneksi akan dialokasikan secara penuh setelah server menerima ACK yang valid dari client.
+SYN Cookies memungkinkan server menunda penggunaan sumber daya koneksi secara penuh sampai menerima ACK yang valid dari client. Metode ini membantu mengurangi risiko penumpukan koneksi setengah terbuka.
+
+Selain itu, administrator jaringan dapat menerapkan pembatasan koneksi dan pemantauan lalu lintas jaringan untuk mendeteksi aktivitas yang tidak normal.
 
 ## 7. Kesimpulan
 
-SYN Flood memanfaatkan pengiriman paket SYN dalam jumlah besar untuk berpotensi membebani sumber daya server.
+Berdasarkan praktikum yang dilakukan, SYN Flood memanfaatkan pengiriman paket SYN dalam jumlah besar untuk berpotensi membebani sumber daya server.
 
-Melalui praktikum ini, perubahan status `SYN_RECV` dapat diamati dan tcpdump membantu memahami proses komunikasi TCP.
+Melalui pengujian ini, saya dapat mengamati perubahan jumlah koneksi `SYN_RECV` dan memahami fungsi tcpdump dalam melihat lalu lintas jaringan.
+
+Praktikum ini juga memberikan pemahaman mengenai proses TCP Three-Way Handshake dan salah satu metode mitigasi SYN Flood, yaitu SYN Cookies.
 
 ---
 
@@ -664,11 +726,13 @@ Melalui praktikum ini, perubahan status `SYN_RECV` dapat diamati dan tcpdump mem
 
 ## 1. Tujuan
 
-Memahami penyalahgunaan DNS sebagai media pengiriman data serta mempelajari cara mendeteksi pola query DNS yang mencurigakan melalui analisis log.
+Praktikum ini bertujuan untuk memahami penyalahgunaan protokol DNS sebagai media pengiriman data serta mempelajari cara mendeteksi pola query DNS yang mencurigakan melalui analisis log.
 
 ## 2. Langkah Pengerjaan
 
 **1. Menjalankan layanan DNS dan attacker**
+
+Langkah pertama adalah menjalankan container yang digunakan untuk simulasi DNS Exfiltration.
 
 ```bash
 sudo docker compose -p k5 -f 01-sumber-lab/b/b4-dns-exfil/docker-compose.yml up -d
@@ -730,57 +794,59 @@ sudo docker compose -p k5 -f 01-sumber-lab/b/b4-dns-exfil/docker-compose.yml dow
 
 ## 3. Hasil Pengujian
 
-Query DNS berhasil dikirim menggunakan subdomain yang berisi NIM dalam format hexadecimal.
+Berdasarkan pengujian yang dilakukan, NIM berhasil dikonversi ke format hexadecimal dan digunakan sebagai bagian dari subdomain DNS.
+
+Query yang dikirim adalah:
 
 ```text
 3234353532303131313331.k5.exfil.lab
 ```
 
-DNS memberikan respons berupa alamat IP:
+DNS memberikan respons berupa alamat IP berikut:
 
 ```text
 10.0.0.99
 ```
 
-Log DNS berhasil disimpan dan dianalisis menggunakan script `analisis_dns.py`.
+Selanjutnya, log DNS berhasil disimpan dan dianalisis menggunakan script `analisis_dns.py`.
 
 Hasil analisis menunjukkan satu query di bawah domain induk `exfil.lab` yang ditandai sebagai aktivitas mencurigakan.
 
-Setelah dilakukan decoding hexadecimal, data kembali menjadi:
+Setelah dilakukan proses decoding hexadecimal, data kembali menjadi:
 
 ```text
 24552011131
 ```
 
-Hasil tersebut sesuai dengan NIM yang digunakan selama praktikum.
+Hasil tersebut sesuai dengan NIM yang digunakan selama praktikum. Dengan demikian, proses konversi data, pengiriman query DNS, pencatatan log, dan decoding berhasil diamati.
 
 ## 4. Bukti Screenshot
 
-**Gambar 33.** Menjalankan service DNS dan attacker.
+**Gambar 33.** Proses menjalankan service DNS dan container attacker menggunakan Docker Compose sebagai persiapan simulasi DNS Exfiltration.
 
 ![Gambar 33](https://github.com/user-attachments/assets/4acfb09d-ad7c-497a-bab8-6defb9530827)
 
-**Gambar 34.** Mengubah NIM menjadi format hexadecimal.
+**Gambar 34.** Proses mengubah NIM menjadi format hexadecimal menggunakan perintah `xxd`. Hasil konversi digunakan sebagai bagian dari subdomain pada query DNS.
 
 ![Gambar 34](https://github.com/user-attachments/assets/6468316d-123a-4ce9-bc0c-71b212b9fda3)
 
-**Gambar 35.** Mengirim query DNS dan memperoleh respons dari server.
+**Gambar 35.** Proses mengirim query DNS yang berisi data hexadecimal menuju server DNS. Hasil pengujian menunjukkan respons berupa alamat IP `10.0.0.99`.
 
 ![Gambar 35](https://github.com/user-attachments/assets/d3547057-6e0b-44b1-814e-caeea1f3e83c)
 
-**Gambar 36.** Menyimpan log DNS dan melakukan decoding data.
+**Gambar 36.** Proses menyimpan log DNS dan melakukan decoding terhadap data hexadecimal untuk mengembalikan data ke bentuk teks semula.
 
 ![Gambar 36](https://github.com/user-attachments/assets/300e321e-84bd-414d-8c35-655429fde608)
 
-**Gambar 37.** Hasil analisis script deteksi DNS yang menunjukkan satu query mencurigakan.
+**Gambar 37.** Hasil analisis log DNS menggunakan script `analisis_dns.py`. Pada hasil tersebut ditemukan satu query yang ditandai sebagai aktivitas mencurigakan.
 
 ![Gambar 37](https://github.com/user-attachments/assets/888421d8-6438-4afa-997b-da1f85f8f111)
 
-**Gambar 38.** Memverifikasi hasil decoding hexadecimal menjadi NIM.
+**Gambar 38.** Hasil verifikasi decoding hexadecimal yang menunjukkan bahwa data berhasil dikembalikan menjadi NIM `24552011131`.
 
 ![Gambar 38](https://github.com/user-attachments/assets/02a9fab0-d0bf-4d70-ad87-a9fb43c2634d)
 
-**Gambar 39.** Membersihkan lingkungan praktikum.
+**Gambar 39.** Proses menghentikan dan membersihkan container serta jaringan praktikum setelah seluruh pengujian DNS Exfiltration selesai dilakukan.
 
 ![Gambar 39](https://github.com/user-attachments/assets/3b532449-5179-48d7-b03c-ae8655fdcfa7)
 
@@ -790,7 +856,9 @@ Hasil tersebut sesuai dengan NIM yang digunakan selama praktikum.
 
 DNS Exfiltration memanfaatkan protokol DNS yang umumnya diizinkan oleh firewall untuk kebutuhan resolusi nama domain.
 
-Karena lalu lintasnya dapat terlihat seperti permintaan domain biasa, aktivitas pengiriman data sulit dibedakan apabila firewall hanya melakukan penyaringan berdasarkan alamat IP atau nomor port.
+Karena lalu lintas DNS dapat terlihat seperti permintaan domain biasa, aktivitas pengiriman data menjadi lebih sulit dibedakan apabila firewall hanya melakukan penyaringan berdasarkan alamat IP atau nomor port.
+
+Oleh karena itu, pemeriksaan terhadap pola query DNS juga diperlukan untuk membantu menemukan aktivitas yang tidak biasa.
 
 ### b. Indikator Deteksi
 
@@ -801,49 +869,37 @@ Beberapa indikator yang dapat digunakan untuk mendeteksi DNS Exfiltration antara
 - Frekuensi query yang tinggi menuju domain tertentu.
 - Pola query yang tidak sesuai dengan aktivitas DNS normal.
 
-Analisis panjang label dan entropi juga dapat membantu mengidentifikasi pola permintaan DNS yang mencurigakan.
+Selain indikator tersebut, analisis panjang label dan entropi juga dapat membantu mengidentifikasi pola permintaan DNS yang mencurigakan.
 
 ## 6. Kesimpulan
 
-DNS Exfiltration merupakan teknik penyalahgunaan protokol DNS untuk mengirimkan data melalui query.
+Berdasarkan praktikum yang telah dilakukan, DNS Exfiltration merupakan teknik penyalahgunaan protokol DNS untuk mengirimkan data melalui query DNS.
 
-Pada praktikum ini, NIM berhasil dikonversi menjadi hexadecimal, dikirim melalui query DNS, dicatat dalam log, dan dikembalikan melalui proses decoding.
+Pada pengujian ini, NIM berhasil dikonversi menjadi hexadecimal, digunakan sebagai bagian dari query DNS, dicatat dalam log, kemudian dikembalikan melalui proses decoding.
 
-Analisis log DNS dapat membantu mendeteksi aktivitas yang tidak biasa dalam lalu lintas jaringan.
+Melalui kegiatan ini, saya memahami bahwa analisis log DNS dapat membantu menemukan aktivitas yang tidak biasa dan menjadi salah satu langkah dalam mendeteksi kemungkinan kebocoran data melalui protokol DNS.
 
 ---
 
 # C. KESIMPULAN AKHIR
 
-Berdasarkan praktikum UTS Kasus 5 yang telah dilaksanakan, terdapat tujuh materi keamanan jaringan yang telah dipelajari dan didokumentasikan, yaitu:
+Berdasarkan seluruh kegiatan praktikum UTS Kasus 5 dari Pertemuan 1 sampai Pertemuan 7, terdapat tujuh materi keamanan jaringan yang telah dipelajari dan diuji dalam lingkungan laboratorium.
 
-1. **Docker dan Volume:** Memahami penyimpanan data secara persisten serta komunikasi antarcontainer.
-2. **Kriptografi:** Memahami enkripsi AES-256-CBC, pemeriksaan integritas SHA-256, dan pembuatan sertifikat digital.
-3. **ARP Spoofing:** Memahami perubahan pemetaan IP dan MAC Address serta mitigasi menggunakan Static ARP.
-4. **Analisis WPA2 Handshake:** Memahami proses autentikasi WPA2 dan melakukan pemeriksaan file capture menggunakan Aircrack-ng.
-5. **ICMP dengan Scapy:** Memahami pengiriman ICMP Echo Request dan penerimaan Echo Reply.
-6. **SYN Flood:** Memahami TCP Three-Way Handshake dan mengamati koneksi setengah terbuka selama simulasi.
-7. **DNS Exfiltration:** Memahami pengiriman data melalui query DNS dan menganalisis pola permintaan DNS yang mencurigakan.
+Berikut merupakan rangkuman hasil dari setiap tugas:
 
-Enam tugas menghasilkan pengujian sesuai dengan hasil yang diamati. Sementara itu, Tugas 4 belum dapat dilanjutkan ke tahap pencocokan wordlist karena file capture yang disediakan tidak dapat dibaca sebagai capture 802.11 yang valid.
+1. **Docker dan Volume:** Memahami penyimpanan data secara persisten menggunakan Docker Volume serta menguji komunikasi antarcontainer menggunakan Docker Compose.
+2. **Kriptografi:** Memahami proses enkripsi dan dekripsi AES-256-CBC, pemeriksaan integritas menggunakan SHA-256, serta pembuatan sertifikat digital menggunakan OpenSSL.
+3. **ARP Spoofing:** Memahami perubahan pemetaan IP dan MAC Address pada tabel ARP serta mempelajari mitigasi menggunakan Static ARP.
+4. **Analisis WPA2 Handshake:** Memahami konsep autentikasi WPA2 dan melakukan pemeriksaan file capture menggunakan Aircrack-ng. Namun, proses pencocokan wordlist belum dapat dilakukan karena file capture tidak berhasil dibaca sebagai capture 802.11 yang valid.
+5. **ICMP dengan Scapy:** Memahami proses pengiriman ICMP Echo Request dan penerimaan Echo Reply menggunakan Scapy.
+6. **SYN Flood:** Memahami proses TCP Three-Way Handshake serta mengamati perubahan koneksi setengah terbuka selama simulasi SYN Flood.
+7. **DNS Exfiltration:** Memahami pengiriman data melalui query DNS, proses konversi hexadecimal, dan analisis log untuk mendeteksi aktivitas DNS yang mencurigakan.
 
-Seluruh hasil pengujian dan pembahasan dituliskan berdasarkan proses pengerjaan serta keluaran terminal yang diperoleh selama praktikum.
+Secara keseluruhan, kegiatan praktikum ini memberikan pengalaman dalam menggunakan beberapa tools keamanan jaringan dan melakukan pengujian secara langsung melalui lingkungan Docker.
 
-# D. PENUTUP
+Dari setiap kegiatan, saya memperoleh pemahaman bahwa keamanan jaringan tidak hanya berkaitan dengan cara kerja suatu protokol, tetapi juga bagaimana protokol tersebut dapat disalahgunakan dan bagaimana langkah pencegahan dapat diterapkan.
 
-Demikian laporan Ujian Tengah Semester (UTS) Kasus 5 ini dibuat sebagai dokumentasi kegiatan praktikum Pertemuan 1 sampai 7 pada mata kuliah Network Security.
-
-Melalui kegiatan ini, saya memperoleh pengalaman dalam menggunakan berbagai tools keamanan jaringan, menjalankan lingkungan laboratorium berbasis Docker, melakukan pengujian, serta menganalisis hasil praktikum.
-
-Saya berharap laporan ini dapat menjadi dokumentasi dari proses pembelajaran dan pemahaman terhadap materi keamanan jaringan yang telah dipraktikkan.
-
----
-
-**Disusun oleh:**
-
-**Nama:** Putra Baa'di Zaelani  
-**NIM:** 24552011131  
-**Kelas:** TIF RP 24 E CNS
+Seluruh hasil pengujian dan pembahasan dalam laporan ini disusun berdasarkan proses pengerjaan serta keluaran terminal yang diperoleh selama praktikum.
 
 **Repository GitHub:**
 
