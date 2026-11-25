@@ -181,10 +181,7 @@ Sertifikat self-signed ditandatangani oleh pemilik sertifikat itu sendiri sehing
 *Gambar 8. Proses enkripsi dan dekripsi AES-256-CBC serta pemeriksaan hash SHA-256.*
 
 ![Tugas 2 - Screenshot 2](tugas-2/screenshot/2.png)
-*Gambar 9. Bukti tahapan praktikum kriptografi.*
-
-![Tugas 2 - Screenshot 3](tugas-2/screenshot/3.png)
-*Gambar 10. Pembuatan dan pemeriksaan sertifikat X.509 self-signed.*
+*Gambar 9. Pembuatan dan pemeriksaan sertifikat X.509 self-signed.*
 
 ## 5. Kesimpulan
 AES-256-CBC digunakan untuk menjaga kerahasiaan data, SHA-256 membantu memeriksa integritas data, sedangkan sertifikat X.509 digunakan untuk identifikasi entitas dalam komunikasi digital.
@@ -254,34 +251,34 @@ Setelah simulasi dijalankan, pemetaan alamat MAC gateway pada tabel ARP korban b
 ## 4. Bukti Screenshot
 
 ![Tugas 3 - Screenshot 1](tugas-3/screenshot/1.png)
-*Gambar 11. Membuat jaringan internal `lab-arp-k5`.*
+*Gambar 10. Membuat jaringan internal `lab-arp-k5`.*
 
 ![Tugas 3 - Screenshot 2](tugas-3/screenshot/2.png)
-*Gambar 12. Menjalankan container korban.*
+*Gambar 11. Menjalankan container korban.*
 
 ![Tugas 3 - Screenshot 3](tugas-3/screenshot/3.png)
-*Gambar 13. Menjalankan container gateway.*
+*Gambar 12. Menjalankan container gateway.*
 
 ![Tugas 3 - Screenshot 4](tugas-3/screenshot/4.png)
-*Gambar 14. Menjalankan container penyerang.*
+*Gambar 13. Menjalankan container penyerang.*
 
 ![Tugas 3 - Screenshot 5](tugas-3/screenshot/5.png)
-*Gambar 15. Memeriksa alamat IP setiap container.*
+*Gambar 14. Memeriksa alamat IP setiap container.*
 
 ![Tugas 3 - Screenshot 6](tugas-3/screenshot/6.png)
-*Gambar 16. Tabel ARP korban sebelum serangan.*
+*Gambar 15. Tabel ARP korban sebelum serangan.*
 
 ![Tugas 3 - Screenshot 7](tugas-3/screenshot/7.png)
-*Gambar 17. Menjalankan simulasi ARP Spoofing.*
+*Gambar 16. Menjalankan simulasi ARP Spoofing.*
 
 ![Tugas 3 - Screenshot 8](tugas-3/screenshot/8.png)
-*Gambar 18. Perubahan MAC Address gateway setelah spoofing.*
+*Gambar 17. Perubahan MAC Address gateway setelah spoofing.*
 
 ![Tugas 3 - Screenshot 9](tugas-3/screenshot/9.png)
-*Gambar 19. Menerapkan Static ARP sebagai mitigasi.*
+*Gambar 18. Menerapkan Static ARP sebagai mitigasi.*
 
 ![Tugas 3 - Screenshot 10](tugas-3/screenshot/10.png)
-*Gambar 20. Tabel ARP setelah mitigasi diterapkan.*
+*Gambar 19. Tabel ARP setelah mitigasi diterapkan.*
 
 ## 5. Mitigasi Lain
 Selain Static ARP, ARP Spoofing dapat dikurangi menggunakan Dynamic ARP Inspection (DAI). Fitur ini memvalidasi paket ARP berdasarkan informasi IP dan MAC yang dipercaya, misalnya melalui DHCP Snooping.
@@ -334,22 +331,22 @@ Dengan demikian, pengujian berhenti pada tahap pembacaan file. Tidak ada hasil `
 ## 4. Bukti Screenshot
 
 ![Tugas 4 - Screenshot 1](tugas-4/screenshot/1.png)
-*Gambar 21. Memeriksa ketersediaan file capture dan wordlist.*
+*Gambar 20. Memeriksa ketersediaan file capture dan wordlist.*
 
 ![Tugas 4 - Screenshot 2](tugas-4/screenshot/2.png)
-*Gambar 22. Memeriksa isi wordlist yang berisi 20 kandidat kata sandi.*
+*Gambar 21. Memeriksa isi wordlist yang berisi 20 kandidat kata sandi.*
 
 ![Tugas 4 - Screenshot 3](tugas-4/screenshot/3.png)
-*Gambar 23. Hasil pemeriksaan file menggunakan capinfos.*
+*Gambar 22. Hasil pemeriksaan file menggunakan capinfos.*
 
 ![Tugas 4 - Screenshot 4](tugas-4/screenshot/4.png)
-*Gambar 24. Aircrack-ng gagal membaca file capture sebagai format 802.11 yang valid.*
+*Gambar 23. Aircrack-ng gagal membaca file capture sebagai format 802.11 yang valid.*
 
 ![Tugas 4 - Screenshot 5](tugas-4/screenshot/5.png)
-*Gambar 25. Pemeriksaan header file menggunakan xxd.*
+*Gambar 24. Pemeriksaan header file menggunakan xxd.*
 
 ![Tugas 4 - Screenshot 6](tugas-4/screenshot/6.png)
-*Gambar 26. Pemeriksaan hash SHA-256 file capture.*
+*Gambar 25. Pemeriksaan hash SHA-256 file capture.*
 
 ## 5. Pembahasan WPA2 Four-Way Handshake
 
@@ -392,7 +389,7 @@ Tipe ICMP `0` menunjukkan bahwa paket yang diterima merupakan Echo Reply.
 ## 4. Bukti Screenshot
 
 ![Tugas 5 - Screenshot 1](tugas-5/screenshot/1.png)
-*Gambar 27. Pengiriman ICMP Echo Request dan penerimaan Echo Reply menggunakan Scapy.*
+*Gambar 26. Pengiriman ICMP Echo Request dan penerimaan Echo Reply menggunakan Scapy.*
 
 ## 5. Pembahasan Smurf Attack
 
@@ -456,22 +453,22 @@ Pada pengujian tcpdump, sebanyak 12 paket tertangkap ketika satu koneksi HTTP di
 ## 5. Bukti Screenshot
 
 ![Tugas 6 - Screenshot 1](tugas-6/screenshot/1.png)
-*Gambar 28. Menjalankan container attacker dan target menggunakan Docker Compose.*
+*Gambar 27. Menjalankan container attacker dan target menggunakan Docker Compose.*
 
 ![Tugas 6 - Screenshot 2](tugas-6/screenshot/2.png)
-*Gambar 29. Memeriksa status SYN_RECV sebelum serangan.*
+*Gambar 28. Memeriksa status SYN_RECV sebelum serangan.*
 
 ![Tugas 6 - Screenshot 3](tugas-6/screenshot/3.png)
-*Gambar 30. Menjalankan simulasi SYN Flood selama 15 detik.*
+*Gambar 29. Menjalankan simulasi SYN Flood selama 15 detik.*
 
 ![Tugas 6 - Screenshot 4](tugas-6/screenshot/4.png)
-*Gambar 31. Memantau perubahan jumlah koneksi SYN_RECV selama pengujian.*
+*Gambar 30. Memantau perubahan jumlah koneksi SYN_RECV selama pengujian.*
 
 ![Tugas 6 - Screenshot 5](tugas-6/screenshot/5.png)
-*Gambar 32. Mengamati paket TCP dan HTTP menggunakan tcpdump.*
+*Gambar 31. Mengamati paket TCP dan HTTP menggunakan tcpdump.*
 
 ![Tugas 6 - Screenshot 6](tugas-6/screenshot/6.png)
-*Gambar 33. Membersihkan container dan jaringan setelah praktikum.*
+*Gambar 32. Membersihkan container dan jaringan setelah praktikum.*
 
 ## 6. Mitigasi SYN Flood
 Salah satu metode mitigasi SYN Flood adalah SYN Cookies. Server menggunakan nilai sequence number pada SYN-ACK untuk menyimpan informasi koneksi sementara, kemudian mengalokasikan sumber daya koneksi secara penuh setelah menerima ACK yang valid dari client.
@@ -542,25 +539,25 @@ Hasil tersebut sesuai dengan NIM yang digunakan pada praktikum.
 ## 4. Bukti Screenshot
 
 ![Tugas 7 - Screenshot 1](tugas-7/screenshot/1.png)
-*Gambar 34. Menjalankan service DNS dan attacker.*
+*Gambar 33. Menjalankan service DNS dan attacker.*
 
 ![Tugas 7 - Screenshot 2](tugas-7/screenshot/2.png)
-*Gambar 35. Mengubah NIM menjadi format hexadecimal.*
+*Gambar 34. Mengubah NIM menjadi format hexadecimal.*
 
 ![Tugas 7 - Screenshot 3](tugas-7/screenshot/3.png)
-*Gambar 36. Mengirim query DNS dan memperoleh respons dari server.*
+*Gambar 35. Mengirim query DNS dan memperoleh respons dari server.*
 
 ![Tugas 7 - Screenshot 4](tugas-7/screenshot/4.png)
-*Gambar 37. Menyimpan log DNS dan melakukan decoding data.*
+*Gambar 36. Menyimpan log DNS dan melakukan decoding data.*
 
 ![Tugas 7 - Screenshot 5](tugas-7/screenshot/5.png)
-*Gambar 38. Hasil analisis script deteksi DNS yang menunjukkan satu query mencurigakan.*
+*Gambar 37. Hasil analisis script deteksi DNS yang menunjukkan satu query mencurigakan.*
 
 ![Tugas 7 - Screenshot 6](tugas-7/screenshot/6.png)
-*Gambar 39. Memverifikasi hasil decoding hexadecimal menjadi NIM.*
+*Gambar 38. Memverifikasi hasil decoding hexadecimal menjadi NIM.*
 
 ![Tugas 7 - Screenshot 7](tugas-7/screenshot/7.png)
-*Gambar 40. Membersihkan lingkungan praktikum.*
+*Gambar 39. Membersihkan lingkungan praktikum.*
 
 ## 5. Pembahasan DNS Exfiltration
 
