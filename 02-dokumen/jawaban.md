@@ -103,26 +103,32 @@ File `laporan-k5.txt` yang berisi NIM berhasil dibaca kembali setelah container 
 
 ## 4. Bukti Screenshot
 
-![Tugas 1 - Screenshot 1](tugas-1/screenshot/1.png)
+<img width="846" height="73" alt="1" src="https://github.com/user-attachments/assets/48bae63f-981c-40eb-8cff-42b846e74782" />
 *Gambar 1. Membuat Docker Volume `vol-k5`.*
 
 ![Tugas 1 - Screenshot 2](tugas-1/screenshot/2.png)
-*Gambar 2. Menulis NIM ke file `laporan-k5.txt` di dalam volume.*
 
-![Tugas 1 - Screenshot 3](tugas-1/screenshot/3.png)
+*Gambar 2. Menulis NIM ke file `laporan-k5.txt` di dalam volume.*
+<img width="837" height="47" alt="2" src="https://github.com/user-attachments/assets/bd53370b-97c9-4d31-ab88-98ef0b83c1a4" />
+
 *Gambar 3. Menghapus container `w-k5`.*
+<img width="834" height="71" alt="3" src="https://github.com/user-attachments/assets/2efb07ff-687c-4bec-947a-ed8d3084f5e6" />
 
 ![Tugas 1 - Screenshot 4](tugas-1/screenshot/4.png)
 *Gambar 4. Membaca kembali file dari volume dan memastikan data tetap tersedia.*
+<img width="815" height="69" alt="4" src="https://github.com/user-attachments/assets/2b81f0af-21fa-4705-9649-bfec601e1a4b" />
 
 ![Tugas 1 - Screenshot 5](tugas-1/screenshot/5.png)
 *Gambar 5. Menjalankan container target dan attacker menggunakan Docker Compose.*
+<img width="839" height="113" alt="5" src="https://github.com/user-attachments/assets/8b1528c7-7481-4798-be77-2992e0d3c0a6" />
 
 ![Tugas 1 - Screenshot 6](tugas-1/screenshot/6.png)
 *Gambar 6. Menguji komunikasi attacker dengan server Nginx.*
+<img width="850" height="487" alt="6" src="https://github.com/user-attachments/assets/98d143eb-f433-486c-9ffd-6815f5b91ea8" />
 
 ![Tugas 1 - Screenshot 7](tugas-1/screenshot/7.png)
 *Gambar 7. Membersihkan lingkungan praktikum menggunakan Docker Compose.*
+<img width="851" height="110" alt="7" src="https://github.com/user-attachments/assets/5f6de2bb-c5b3-45c9-bd58-7669b1f43aa2" />
 
 ## 5. Kesimpulan
 Docker Volume dapat menyimpan data secara persisten sehingga data tidak hilang ketika container dihapus. Docker Compose mempermudah pengelolaan beberapa container yang saling terhubung dalam satu jaringan.
@@ -177,10 +183,10 @@ Sertifikat self-signed ditandatangani oleh pemilik sertifikat itu sendiri sehing
 
 ## 4. Bukti Screenshot
 
-![Tugas 2 - Screenshot 1](tugas-2/screenshot/1.png)
+<img width="1420" height="127" alt="1" src="https://github.com/user-attachments/assets/19675bbd-c956-4ca8-950f-8de565614b02" />
 *Gambar 8. Proses enkripsi dan dekripsi AES-256-CBC serta pemeriksaan hash SHA-256.*
 
-![Tugas 2 - Screenshot 2](tugas-2/screenshot/2.png)
+<img width="1427" height="333" alt="2" src="https://github.com/user-attachments/assets/085644cf-f7b4-493f-85d0-6d92c5294e70" />
 *Gambar 9. Pembuatan dan pemeriksaan sertifikat X.509 self-signed.*
 
 ## 5. Kesimpulan
@@ -250,7 +256,7 @@ Setelah simulasi dijalankan, pemetaan alamat MAC gateway pada tabel ARP korban b
 
 ## 4. Bukti Screenshot
 
-![Tugas 3 - Screenshot 1](tugas-3/screenshot/1.png)
+<img width="844" height="68" alt="1" src="https://github.com/user-attachments/assets/38ba18d2-c60d-4868-8e20-738788064bce" />
 *Gambar 10. Membuat jaringan internal `lab-arp-k5`.*
 
 ![Tugas 3 - Screenshot 2](tugas-3/screenshot/2.png)
