@@ -101,4 +101,3 @@ Berikut struktur direktori repository:
 
 Repository ini dibuat sebagai dokumentasi dan bukti pengerjaan Ujian Tengah Semester (UTS) mata kuliah Keamanan Jaringan, khususnya Praktik Infrastruktur & Network Attacks pada Kasus 5.
 
-Seluruh file disusun berdasarkan kelompok tugas agar memudahkan proses pemeriksaan dan penilaian.
