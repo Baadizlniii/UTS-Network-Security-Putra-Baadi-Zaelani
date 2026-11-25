@@ -6,7 +6,7 @@
 
 | Identitas | Keterangan |
 |---|---|
-| Nama | Putra Baadi Zaelani |
+| Nama | Putra Baa'di Zaelani |
 | NIM | 24552011131 |
 | Kelas | TIF RP 24E CNS |
 | Mata Kuliah | Network Security |
