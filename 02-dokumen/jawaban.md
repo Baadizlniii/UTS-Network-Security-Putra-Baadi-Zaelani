@@ -259,31 +259,31 @@ Setelah simulasi dijalankan, pemetaan alamat MAC gateway pada tabel ARP korban b
 <img width="844" height="68" alt="1" src="https://github.com/user-attachments/assets/38ba18d2-c60d-4868-8e20-738788064bce" />
 *Gambar 10. Membuat jaringan internal `lab-arp-k5`.*
 
-![Tugas 3 - Screenshot 2](tugas-3/screenshot/2.png)
+<img width="844" height="68" alt="1" src="https://github.com/user-attachments/assets/79d9dd80-f284-45aa-be66-f53b9165d5fa" />
 *Gambar 11. Menjalankan container korban.*
 
-![Tugas 3 - Screenshot 3](tugas-3/screenshot/3.png)
+<img width="829" height="80" alt="2" src="https://github.com/user-attachments/assets/3a9c7f49-db3f-4c82-ba3f-c3a4f714c430" />
 *Gambar 12. Menjalankan container gateway.*
 
-![Tugas 3 - Screenshot 4](tugas-3/screenshot/4.png)
+<img width="860" height="65" alt="3" src="https://github.com/user-attachments/assets/13097941-35f3-4267-90b3-894d612148d3" />
 *Gambar 13. Menjalankan container penyerang.*
 
-![Tugas 3 - Screenshot 5](tugas-3/screenshot/5.png)
+<img width="830" height="77" alt="4" src="https://github.com/user-attachments/assets/ded1d69c-3057-44ef-abd5-4f8482b46e86" />
 *Gambar 14. Memeriksa alamat IP setiap container.*
 
-![Tugas 3 - Screenshot 6](tugas-3/screenshot/6.png)
+<img width="823" height="56" alt="6" src="https://github.com/user-attachments/assets/14b8b3a8-fd5d-4ab4-8979-b523cb89d322" />
 *Gambar 15. Tabel ARP korban sebelum serangan.*
 
-![Tugas 3 - Screenshot 7](tugas-3/screenshot/7.png)
+<img width="840" height="47" alt="7" src="https://github.com/user-attachments/assets/d0dc51e6-c092-41d2-8f09-855fa25c9215" />
 *Gambar 16. Menjalankan simulasi ARP Spoofing.*
 
-![Tugas 3 - Screenshot 8](tugas-3/screenshot/8.png)
+<img width="827" height="82" alt="8" src="https://github.com/user-attachments/assets/7756406a-0401-49cd-8021-22035eaa678d" />
 *Gambar 17. Perubahan MAC Address gateway setelah spoofing.*
 
-![Tugas 3 - Screenshot 9](tugas-3/screenshot/9.png)
+<img width="914" height="42" alt="9" src="https://github.com/user-attachments/assets/f9835b3b-8d17-4976-88c5-8525cac006f7" />
 *Gambar 18. Menerapkan Static ARP sebagai mitigasi.*
 
-![Tugas 3 - Screenshot 10](tugas-3/screenshot/10.png)
+<img width="833" height="81" alt="10" src="https://github.com/user-attachments/assets/9a4b282f-e8a0-464a-96b9-88042c6672a2" />
 *Gambar 19. Tabel ARP setelah mitigasi diterapkan.*
 
 ## 5. Mitigasi Lain
@@ -336,22 +336,22 @@ Dengan demikian, pengujian berhenti pada tahap pembacaan file. Tidak ada hasil `
 
 ## 4. Bukti Screenshot
 
-![Tugas 4 - Screenshot 1](tugas-4/screenshot/1.png)
+<img width="672" height="86" alt="1" src="https://github.com/user-attachments/assets/5fad8222-00f3-48fb-ab3b-dfc4cc814d1f" />
 *Gambar 20. Memeriksa ketersediaan file capture dan wordlist.*
 
-![Tugas 4 - Screenshot 2](tugas-4/screenshot/2.png)
+<img width="681" height="373" alt="2" src="https://github.com/user-attachments/assets/58d19bac-ec5a-4cf6-9e23-d5521d5e2784" />
 *Gambar 21. Memeriksa isi wordlist yang berisi 20 kandidat kata sandi.*
 
-![Tugas 4 - Screenshot 3](tugas-4/screenshot/3.png)
+<img width="676" height="113" alt="3" src="https://github.com/user-attachments/assets/8b754e73-8829-4223-a444-fb6627649c13" />
 *Gambar 22. Hasil pemeriksaan file menggunakan capinfos.*
 
-![Tugas 4 - Screenshot 4](tugas-4/screenshot/4.png)
+<img width="682" height="190" alt="4" src="https://github.com/user-attachments/assets/95dfa713-42ce-4927-85d4-26f70bf0b788" />
 *Gambar 23. Aircrack-ng gagal membaca file capture sebagai format 802.11 yang valid.*
 
-![Tugas 4 - Screenshot 5](tugas-4/screenshot/5.png)
+<img width="716" height="234" alt="5" src="https://github.com/user-attachments/assets/5ca7b8f7-d68a-45f9-bf8f-37a1d9c42bae" />
 *Gambar 24. Pemeriksaan header file menggunakan xxd.*
 
-![Tugas 4 - Screenshot 6](tugas-4/screenshot/6.png)
+<img width="688" height="75" alt="6" src="https://github.com/user-attachments/assets/89c674de-f23a-4c31-9643-fdb39f1c62a4" />
 *Gambar 25. Pemeriksaan hash SHA-256 file capture.*
 
 ## 5. Pembahasan WPA2 Four-Way Handshake
@@ -394,7 +394,7 @@ Tipe ICMP `0` menunjukkan bahwa paket yang diterima merupakan Echo Reply.
 
 ## 4. Bukti Screenshot
 
-![Tugas 5 - Screenshot 1](tugas-5/screenshot/1.png)
+<img width="1087" height="89" alt="1" src="https://github.com/user-attachments/assets/c0bc5a2d-132f-40fa-a25e-3a13bac468f2" />
 *Gambar 26. Pengiriman ICMP Echo Request dan penerimaan Echo Reply menggunakan Scapy.*
 
 ## 5. Pembahasan Smurf Attack
@@ -458,22 +458,22 @@ Pada pengujian tcpdump, sebanyak 12 paket tertangkap ketika satu koneksi HTTP di
 
 ## 5. Bukti Screenshot
 
-![Tugas 6 - Screenshot 1](tugas-6/screenshot/1.png)
+<img width="879" height="162" alt="1" src="https://github.com/user-attachments/assets/99efbc88-1d5c-4602-86ec-0f0cee8c72f9" />
 *Gambar 27. Menjalankan container attacker dan target menggunakan Docker Compose.*
 
-![Tugas 6 - Screenshot 2](tugas-6/screenshot/2.png)
+<img width="920" height="72" alt="2" src="https://github.com/user-attachments/assets/179ac2f3-8437-4b1e-b038-19cd9b4d074e" />
 *Gambar 28. Memeriksa status SYN_RECV sebelum serangan.*
 
-![Tugas 6 - Screenshot 3](tugas-6/screenshot/3.png)
+<img width="1057" height="50" alt="3" src="https://github.com/user-attachments/assets/3c622444-45e9-44d2-80cc-ab0b6e544969" />
 *Gambar 29. Menjalankan simulasi SYN Flood selama 15 detik.*
 
-![Tugas 6 - Screenshot 4](tugas-6/screenshot/4.png)
+<img width="1261" height="201" alt="4" src="https://github.com/user-attachments/assets/ae1af218-1746-402f-9164-4a5a5fa513e0" />
 *Gambar 30. Memantau perubahan jumlah koneksi SYN_RECV selama pengujian.*
 
-![Tugas 6 - Screenshot 5](tugas-6/screenshot/5.png)
+<img width="1417" height="372" alt="5" src="https://github.com/user-attachments/assets/c6263b76-1036-4051-81e3-06caa57ffe39" />
 *Gambar 31. Mengamati paket TCP dan HTTP menggunakan tcpdump.*
 
-![Tugas 6 - Screenshot 6](tugas-6/screenshot/6.png)
+<img width="829" height="112" alt="6" src="https://github.com/user-attachments/assets/69ec7d1c-64f7-4101-b047-6d2eed42f9ed" />
 *Gambar 32. Membersihkan container dan jaringan setelah praktikum.*
 
 ## 6. Mitigasi SYN Flood
@@ -544,25 +544,25 @@ Hasil tersebut sesuai dengan NIM yang digunakan pada praktikum.
 
 ## 4. Bukti Screenshot
 
-![Tugas 7 - Screenshot 1](tugas-7/screenshot/1.png)
+<img width="860" height="117" alt="1" src="https://github.com/user-attachments/assets/4acfb09d-ad7c-497a-bab8-6defb9530827" />
 *Gambar 33. Menjalankan service DNS dan attacker.*
 
-![Tugas 7 - Screenshot 2](tugas-7/screenshot/2.png)
+<img width="840" height="61" alt="2" src="https://github.com/user-attachments/assets/6468316d-123a-4ce9-bc0c-71b212b9fda3" />
 *Gambar 34. Mengubah NIM menjadi format hexadecimal.*
 
-![Tugas 7 - Screenshot 3](tugas-7/screenshot/3.png)
+<img width="1075" height="57" alt="3" src="https://github.com/user-attachments/assets/d3547057-6e0b-44b1-814e-caeea1f3e83c" />
 *Gambar 35. Mengirim query DNS dan memperoleh respons dari server.*
 
-![Tugas 7 - Screenshot 4](tugas-7/screenshot/4.png)
+<img width="1421" height="287" alt="4" src="https://github.com/user-attachments/assets/300e321e-84bd-414d-8c35-655429fde608" />
 *Gambar 36. Menyimpan log DNS dan melakukan decoding data.*
 
-![Tugas 7 - Screenshot 5](tugas-7/screenshot/5.png)
+<img width="849" height="117" alt="5" src="https://github.com/user-attachments/assets/888421d8-6438-4afa-997b-da1f85f8f111" />
 *Gambar 37. Hasil analisis script deteksi DNS yang menunjukkan satu query mencurigakan.*
 
-![Tugas 7 - Screenshot 6](tugas-7/screenshot/6.png)
+<img width="825" height="74" alt="6" src="https://github.com/user-attachments/assets/02a9fab0-d0bf-4d70-ad87-a9fb43c2634d" />
 *Gambar 38. Memverifikasi hasil decoding hexadecimal menjadi NIM.*
 
-![Tugas 7 - Screenshot 7](tugas-7/screenshot/7.png)
+<img width="838" height="108" alt="7" src="https://github.com/user-attachments/assets/3b532449-5179-48d7-b03c-ae8655fdcfa7" />
 *Gambar 39. Membersihkan lingkungan praktikum.*
 
 ## 5. Pembahasan DNS Exfiltration
