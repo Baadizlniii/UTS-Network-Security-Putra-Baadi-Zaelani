@@ -521,11 +521,11 @@ Pada praktikum ini, file capture tidak dapat dibaca dengan benar sehingga tahapa
 
 ## 6. Kesimpulan
 
-Berdasarkan praktikum ini, saya memahami bahwa analisis WPA2 Handshake membutuhkan file capture yang valid dan berisi informasi handshake yang sesuai.
+Berdasarkan praktikum Kasus 5, saya memahami konsep dasar autentikasi WPA2 menggunakan Four-Way Handshake serta pentingnya file capture yang valid dalam proses analisis keamanan jaringan wireless.
 
-Pada pengujian yang dilakukan, file yang tersedia tidak dapat dibaca sebagai capture 802.11 yang valid. Oleh karena itu, proses analisis tidak dapat dilanjutkan ke tahap pencocokan wordlist.
+Pada pengujian yang dilakukan, file handshake-k5.cap yang tersedia mengalami masalah saat diperiksa menggunakan capinfos. Tool tersebut gagal membaca paket pertama dan menampilkan informasi ukuran paket yang tidak valid. Percobaan analisis lebih lanjut juga tidak dapat berjalan sebagaimana mestinya.
 
-Kendala tersebut dicatat sesuai dengan hasil pengujian yang diperoleh, sehingga kesimpulan tidak dibuat berdasarkan hasil yang belum berhasil dibuktikan.
+Oleh karena itu, proses analisis tidak dapat dilanjutkan secara valid. Hasil pengujian dicatat berdasarkan kondisi file dan keluaran tool yang diperoleh selama praktikum, tanpa menyimpulkan hasil yang belum berhasil dibuktikan.
 
 ---
 
